@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="770" viewBox="0 0 1200 770" role="img" aria-labelledby="title desc">
+<title id="title">Paged KV: logical sequence order, non-contiguous physical blocks</title>
+<desc id="desc">A logical block zero maps to physical block three, and A logical block one maps to physical block zero. B logical block zero maps to physical block four. Remaining physical blocks are unassigned. Tail capacity in allocated final blocks remains unused.</desc>
+<metadata>Original explanatory diagram for research-vault. References: PagedAttention, https://arxiv.org/abs/2309.06180</metadata>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#52637A"/></marker><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#F2F4F7"/><path d="M0,8 L8,0" stroke="#D5DDE6" stroke-width="1"/></pattern></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172B43} .mono{font-family:Menlo,Consolas,monospace}</style>
+<rect x="0" y="0" width="1200" height="770" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="40" y="49" font-size="30" style="fill:#172B43" font-weight="700" text-anchor="start">Paged KV: logical sequence order, non-contiguous physical blocks</text>
+<text x="40" y="83" font-size="19" style="fill:#52637A" font-weight="400" text-anchor="start">Illustrative block size: 4 tokens. Request A has 6 tokens; request B has 3 tokens.</text>
+<line x1="40" y1="106" x2="1160" y2="106" stroke="#CFD8E3" stroke-width="2"/>
+<text x="40" y="151" font-size="23" style="fill:#172B43" font-weight="700" text-anchor="start">Logical blocks and per-request block tables</text>
+<text x="40" y="199" font-size="20" style="fill:#245EA5" font-weight="700" text-anchor="start">A: logical block 0</text>
+<rect x="40" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="67.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A1</text>
+<rect x="101" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="128.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A2</text>
+<rect x="162" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="189.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A3</text>
+<rect x="223" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="250.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A4</text>
+<text x="40" y="302" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="start" class="mono">block_table[0] = 3</text>
+<text x="350" y="199" font-size="20" style="fill:#245EA5" font-weight="700" text-anchor="start">A: logical block 1</text>
+<rect x="350" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="377.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A5</text>
+<rect x="411" y="217" width="55" height="47" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="438.5" y="246.8" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">A6</text>
+<rect x="472" y="217" width="55" height="47" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="499.5" y="246.8" font-size="18" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<rect x="533" y="217" width="55" height="47" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="560.5" y="246.8" font-size="18" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<text x="350" y="302" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="start" class="mono">block_table[1] = 0</text>
+<text x="850" y="199" font-size="20" style="fill:#925000" font-weight="700" text-anchor="start">B: logical block 0</text>
+<rect x="850" y="217" width="55" height="47" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="877.5" y="246.8" font-size="18" style="fill:#925000" font-weight="400" text-anchor="middle">B1</text>
+<rect x="911" y="217" width="55" height="47" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="938.5" y="246.8" font-size="18" style="fill:#925000" font-weight="400" text-anchor="middle">B2</text>
+<rect x="972" y="217" width="55" height="47" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="999.5" y="246.8" font-size="18" style="fill:#925000" font-weight="400" text-anchor="middle">B3</text>
+<rect x="1033" y="217" width="55" height="47" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="1060.5" y="246.8" font-size="18" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<text x="850" y="302" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="start" class="mono">block_table[0] = 4</text>
+<path d="M 162 320 V 356 H 691 V 456" fill="none" stroke="#245EA5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 472 320 V 385 H 121 V 456" fill="none" stroke="white" stroke-width="7"/>
+<path d="M 472 320 V 385 H 121 V 456" fill="none" stroke="#245EA5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 972 320 V 414 H 881 V 456" fill="none" stroke="#925000" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="240" y="437" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="start">GPU memory: physical KV block pool</text>
+<rect x="40" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="126" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 0</text>
+<rect x="48" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="66.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A5</text>
+<rect x="88" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="106.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A6</text>
+<rect x="128" y="507" width="36" height="44" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="146.0" y="534.25" font-size="15" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<rect x="168" y="507" width="36" height="44" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="186.0" y="534.25" font-size="15" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<text x="126" y="579" font-size="16" style="fill:#245EA5" font-weight="400" text-anchor="middle">assigned to A</text>
+<rect x="230" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="316" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 1</text>
+<text x="316" y="545" font-size="21" style="fill:#52637A" font-weight="400" text-anchor="middle">FREE</text>
+<text x="316" y="579" font-size="16" style="fill:#52637A" font-weight="400" text-anchor="middle">unassigned</text>
+<rect x="420" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="506" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 2</text>
+<text x="506" y="545" font-size="21" style="fill:#52637A" font-weight="400" text-anchor="middle">FREE</text>
+<text x="506" y="579" font-size="16" style="fill:#52637A" font-weight="400" text-anchor="middle">unassigned</text>
+<rect x="610" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="696" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 3</text>
+<rect x="618" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="636.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A1</text>
+<rect x="658" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="676.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A2</text>
+<rect x="698" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="716.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A3</text>
+<rect x="738" y="507" width="36" height="44" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="756.0" y="534.25" font-size="15" style="fill:#245EA5" font-weight="400" text-anchor="middle">A4</text>
+<text x="696" y="579" font-size="16" style="fill:#245EA5" font-weight="400" text-anchor="middle">assigned to A</text>
+<rect x="800" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="886" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 4</text>
+<rect x="808" y="507" width="36" height="44" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="826.0" y="534.25" font-size="15" style="fill:#925000" font-weight="400" text-anchor="middle">B1</text>
+<rect x="848" y="507" width="36" height="44" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="866.0" y="534.25" font-size="15" style="fill:#925000" font-weight="400" text-anchor="middle">B2</text>
+<rect x="888" y="507" width="36" height="44" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="906.0" y="534.25" font-size="15" style="fill:#925000" font-weight="400" text-anchor="middle">B3</text>
+<rect x="928" y="507" width="36" height="44" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="946.0" y="534.25" font-size="15" style="fill:#52637A" font-weight="400" text-anchor="middle">—</text>
+<text x="886" y="579" font-size="16" style="fill:#925000" font-weight="400" text-anchor="middle">assigned to B</text>
+<rect x="990" y="460" width="172" height="137" rx="8" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="1076" y="488" font-size="19" style="fill:#172B43" font-weight="700" text-anchor="middle">Physical 5</text>
+<text x="1076" y="545" font-size="21" style="fill:#52637A" font-weight="400" text-anchor="middle">FREE</text>
+<text x="1076" y="579" font-size="16" style="fill:#52637A" font-weight="400" text-anchor="middle">unassigned</text>
+<text x="40" y="640" font-size="23" style="fill:#172B43" font-weight="700" text-anchor="start">A reads physical blocks 3 → 0 in logical order. B reads block 4.</text>
+<text x="40" y="716" font-size="17" style="fill:#52637A" font-weight="400" text-anchor="start">Blocks are assigned to requests as needed; the GPU block pool itself may be preallocated.</text>
+<text x="40" y="742" font-size="17" style="fill:#52637A" font-weight="400" text-anchor="start">Hatched slots inside assigned final blocks are tail waste. Block tables also have a cost.</text>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+<title id="title">Padding and ragged packing represent the same sequences</title>
+<desc id="desc">Padded rows use nine slots while ragged packing uses six tokens with cumulative offsets 0,3,4,6. A causal block-diagonal attention mask permits attention only within the same request and to preceding positions.</desc>
+<metadata>Original explanatory diagram for research-vault. References: https://docs.pytorch.org/tutorials/intermediate/variable_length_attention_tutorial.html ; https://docs.flashinfer.ai/tutorials/kv_layout.html</metadata>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#52637A"/></marker><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#F2F4F7"/><path d="M0,8 L8,0" stroke="#D5DDE6" stroke-width="1"/></pattern></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172B43} .mono{font-family:Menlo,Consolas,monospace}</style>
+<rect x="0" y="0" width="1200" height="780" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="40" y="49" font-size="30" style="fill:#172B43" font-weight="700" text-anchor="start">Padding and ragged packing represent the same sequences</text>
+<text x="40" y="83" font-size="19" style="fill:#52637A" font-weight="400" text-anchor="start">Example sequence lengths: A = 3, B = 1, C = 2. Token labels retain their request identity.</text>
+<line x1="40" y1="106" x2="1160" y2="106" stroke="#CFD8E3" stroke-width="2"/>
+<text x="40" y="151" font-size="23" style="fill:#172B43" font-weight="700" text-anchor="start">Padded: 9 token slots</text>
+<text x="592" y="151" font-size="23" style="fill:#172B43" font-weight="700" text-anchor="start">Ragged: 6 real tokens</text>
+<text x="40" y="218" font-size="22" style="fill:#245EA5" font-weight="700" text-anchor="start">A</text>
+<rect x="90" y="183" width="112" height="49" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="146.0" y="214.5" font-size="20" style="fill:#245EA5" font-weight="400" text-anchor="middle">A1</text>
+<rect x="220" y="183" width="112" height="49" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="276.0" y="214.5" font-size="20" style="fill:#245EA5" font-weight="400" text-anchor="middle">A2</text>
+<rect x="350" y="183" width="112" height="49" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="406.0" y="214.5" font-size="20" style="fill:#245EA5" font-weight="400" text-anchor="middle">A3</text>
+<text x="40" y="282" font-size="22" style="fill:#925000" font-weight="700" text-anchor="start">B</text>
+<rect x="90" y="247" width="112" height="49" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="146.0" y="278.5" font-size="20" style="fill:#925000" font-weight="400" text-anchor="middle">B1</text>
+<rect x="220" y="247" width="112" height="49" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="276.0" y="278.5" font-size="20" style="fill:#52637A" font-weight="400" text-anchor="middle">PAD</text>
+<rect x="350" y="247" width="112" height="49" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="406.0" y="278.5" font-size="20" style="fill:#52637A" font-weight="400" text-anchor="middle">PAD</text>
+<text x="40" y="346" font-size="22" style="fill:#18735C" font-weight="700" text-anchor="start">C</text>
+<rect x="90" y="311" width="112" height="49" rx="8" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="146.0" y="342.5" font-size="20" style="fill:#18735C" font-weight="400" text-anchor="middle">C1</text>
+<rect x="220" y="311" width="112" height="49" rx="8" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="276.0" y="342.5" font-size="20" style="fill:#18735C" font-weight="400" text-anchor="middle">C2</text>
+<rect x="350" y="311" width="112" height="49" rx="8" fill="url(#hatch)" stroke="#CFD8E3"/>
+<text x="406.0" y="342.5" font-size="20" style="fill:#52637A" font-weight="400" text-anchor="middle">PAD</text>
+<text x="40" y="404" font-size="18" style="fill:#52637A" font-weight="400" text-anchor="start">Padding mask excludes the PAD positions.</text>
+<rect x="592" y="208" width="83" height="58" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="633.5" y="244.35" font-size="21" style="fill:#245EA5" font-weight="400" text-anchor="middle">A1</text>
+<rect x="683" y="208" width="83" height="58" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="724.5" y="244.35" font-size="21" style="fill:#245EA5" font-weight="400" text-anchor="middle">A2</text>
+<rect x="774" y="208" width="83" height="58" rx="8" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="815.5" y="244.35" font-size="21" style="fill:#245EA5" font-weight="400" text-anchor="middle">A3</text>
+<rect x="865" y="208" width="83" height="58" rx="8" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="906.5" y="244.35" font-size="21" style="fill:#925000" font-weight="400" text-anchor="middle">B1</text>
+<rect x="956" y="208" width="83" height="58" rx="8" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="997.5" y="244.35" font-size="21" style="fill:#18735C" font-weight="400" text-anchor="middle">C1</text>
+<rect x="1047" y="208" width="83" height="58" rx="8" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="1088.5" y="244.35" font-size="21" style="fill:#18735C" font-weight="400" text-anchor="middle">C2</text>
+<line x1="588" y1="281" x2="588" y2="298" stroke="#52637A" stroke-width="2"/>
+<text x="588" y="322" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="middle" class="mono">0</text>
+<line x1="861" y1="281" x2="861" y2="298" stroke="#52637A" stroke-width="2"/>
+<text x="861" y="322" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="middle" class="mono">3</text>
+<line x1="952" y1="281" x2="952" y2="298" stroke="#52637A" stroke-width="2"/>
+<text x="952" y="322" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="middle" class="mono">4</text>
+<line x1="1134" y1="281" x2="1134" y2="298" stroke="#52637A" stroke-width="2"/>
+<text x="1134" y="322" font-size="20" style="fill:#172B43" font-weight="400" text-anchor="middle" class="mono">6</text>
+<text x="592" y="365" font-size="22" style="fill:#172B43" font-weight="400" text-anchor="start" class="mono">cu_seqlens = [0, 3, 4, 6]</text>
+<text x="592" y="404" font-size="18" style="fill:#172B43" font-weight="400" text-anchor="start" class="mono">A: [0,3)    B: [3,4)    C: [4,6)</text>
+<line x1="40" y1="438" x2="1160" y2="438" stroke="#CFD8E3" stroke-width="2"/>
+<text x="40" y="479" font-size="23" style="fill:#172B43" font-weight="700" text-anchor="start">Packing preserves attention boundaries</text>
+<text x="83" y="536" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">A1</text>
+<text x="110" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">A1</text>
+<rect x="95" y="515" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="110.5" y="537" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="126" y="515" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="157" y="515" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="188" y="515" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="219" y="515" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="250" y="515" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="83" y="567" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">A2</text>
+<text x="141" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">A2</text>
+<rect x="95" y="546" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="110.5" y="568" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="126" y="546" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="141.5" y="568" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="157" y="546" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="188" y="546" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="219" y="546" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="250" y="546" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="83" y="598" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">A3</text>
+<text x="172" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">A3</text>
+<rect x="95" y="577" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="110.5" y="599" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="126" y="577" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="141.5" y="599" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="157" y="577" width="31" height="31" rx="0" fill="#D8E7FC" stroke="#CFD8E3"/>
+<text x="172.5" y="599" font-size="18" style="fill:#245EA5" font-weight="400" text-anchor="middle">✓</text>
+<rect x="188" y="577" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="219" y="577" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="250" y="577" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="83" y="629" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">B1</text>
+<text x="203" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">B1</text>
+<rect x="95" y="608" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="126" y="608" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="157" y="608" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="188" y="608" width="31" height="31" rx="0" fill="#FCE4C4" stroke="#CFD8E3"/>
+<text x="203.5" y="630" font-size="18" style="fill:#925000" font-weight="400" text-anchor="middle">✓</text>
+<rect x="219" y="608" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="250" y="608" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="83" y="660" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">C1</text>
+<text x="234" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">C1</text>
+<rect x="95" y="639" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="126" y="639" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="157" y="639" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="188" y="639" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="219" y="639" width="31" height="31" rx="0" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="234.5" y="661" font-size="18" style="fill:#18735C" font-weight="400" text-anchor="middle">✓</text>
+<rect x="250" y="639" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<text x="83" y="691" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="end">C2</text>
+<text x="265" y="505" font-size="16" style="fill:#172B43" font-weight="400" text-anchor="middle">C2</text>
+<rect x="95" y="670" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="126" y="670" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="157" y="670" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="188" y="670" width="31" height="31" rx="0" fill="#F4F7FB" stroke="#CFD8E3"/>
+<rect x="219" y="670" width="31" height="31" rx="0" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="234.5" y="692" font-size="18" style="fill:#18735C" font-weight="400" text-anchor="middle">✓</text>
+<rect x="250" y="670" width="31" height="31" rx="0" fill="#D4EFE6" stroke="#CFD8E3"/>
+<text x="265.5" y="692" font-size="18" style="fill:#18735C" font-weight="400" text-anchor="middle">✓</text>
+<text x="345" y="536" font-size="21" style="fill:#172B43" font-weight="700" text-anchor="start">Example: causal self-attention on the packed tokens</text>
+<text x="345" y="576" font-size="19" style="fill:#172B43" font-weight="400" text-anchor="start">Rows are queries; columns are keys. Colored cells are allowed.</text>
+<text x="345" y="611" font-size="19" style="fill:#172B43" font-weight="400" text-anchor="start">C2 can attend to C1 and C2, but cannot attend to A or B.</text>
+<text x="345" y="646" font-size="19" style="fill:#172B43" font-weight="400" text-anchor="start">A causal mask is still needed after padding is removed.</text>
+<text x="40" y="752" font-size="17" style="fill:#52637A" font-weight="400" text-anchor="start">For decode, query and KV lengths can differ; use separate boundary metadata for each.</text>
+</svg>
