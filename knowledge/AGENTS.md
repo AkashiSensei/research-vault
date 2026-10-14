@@ -23,6 +23,7 @@ These instructions apply to `knowledge/` and its descendants, together with the 
 
 ## Sources and Paper Links
 
+- Connect related concepts across knowledge notes with root-relative Obsidian links to their specific headings, using concise display aliases. Link where the relationship is discussed, rather than relying only on document-level navigation. Keep shared definitions in their owning note, and verify heading targets after renumbering or moving entries.
 - Support technical claims with primary papers or official documentation where appropriate. Distinguish source claims from explanatory examples and synthesis.
 - Link relevant existing paper notes using root-relative Obsidian links, for example `[[paper-vault/papers/yu2022orca|Orca]]`.
 - When a paper has no canonical note, link to its original source. Do not create a broken Obsidian link or a placeholder paper note just to supply a reference.
