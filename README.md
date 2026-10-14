@@ -1,40 +1,39 @@
-# paper-vault
-An Obsidian vault for paper notes, literature indexes, and AI-assisted research workflows.
+# research-vault
 
-Implemented workflows:
+A knowledge base for paper notes, research analysis, and technical understanding.
+Open the repository root as one Obsidian vault so notes across modules can link
+to each other.
 
-- `paper-discover`: search, verify, deduplicate, and rank papers from user
-  requirements or explicitly named Markdown briefs.
-- `paper-ingest`: turn a selected paper into a canonical note and update
-  indexes.
-- `paper-intake`: run one configuration-driven recurring intake cycle by
-  composing `paper-discover` and `paper-ingest`, while retaining candidate
-  history, balancing coverage across recent runs, keeping each run internally
-  coherent, and leaving all generated notes uncommitted.
+Repository content is written in English by default unless the user or an
+explicit workflow configuration specifies another language.
 
-Recurring intake configuration:
+## Current Contents
 
-- `paper-intake-config-example.md`: version-controlled example for researchers.
-- `paper-intake-config.md`: ignored local preferences and per-run settings.
+- [Paper vault](paper-vault/README.md): canonical paper notes, literature
+  indexes, discovery records, and recurring intake configuration.
+- [AI infrastructure knowledge](knowledge/ai-infra/inference.md): working
+  notes on inference concepts, techniques, and performance trade-offs.
+- [Shared skills](skills/README.md): AI-assisted workflows for maintaining the
+  knowledge base.
 
-Create the local configuration with:
+Research reports will be added as a separate module when the first report is ready.
+
+## Paper Workflows
+
+Run paper workflows from the Git repository root. Their content lives under
+`paper-vault/`; shared skills remain under `skills/`.
+
+Create the ignored personal intake configuration with:
 
 ```sh
-cp paper-intake-config-example.md paper-intake-config.md
+cp paper-vault/paper-intake-config-example.md paper-vault/paper-intake-config.md
 ```
 
-A scheduler only decides when to invoke `paper-intake`; the skill owns one run's
-workflow. For example:
+For one intake cycle:
 
 ```text
-Use $paper-intake with paper-intake-config.md to run one intake cycle in this
-repository. Leave all generated files unstaged and uncommitted.
+Use $paper-intake with paper-vault/paper-intake-config.md to run one intake
+cycle in this repository. Leave all generated files unstaged and uncommitted.
 ```
 
-The scheduler itself is intentionally not stored or managed by this repository.
-
-When the intake configuration names an external PDF destination,
-`paper-intake` uses the verified PDF as its ingestion source and delivers a copy
-outside the vault. Unattended schedulers need scoped write permission to that
-destination. PDFs and machine-specific local paths are never added to the
-repository.
+See the [paper module guide](paper-vault/README.md) for workflow details.

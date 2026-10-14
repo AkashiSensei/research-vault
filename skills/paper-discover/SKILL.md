@@ -18,11 +18,15 @@ Use this skill to:
 - expand from ingested seed papers and pending relation targets;
 - recommend papers with original links and evidence-backed reasons.
 
-Do not use this skill to create canonical `papers/*.md` notes, perform a full
+Do not use this skill to create canonical `paper-vault/papers/*.md` notes, perform a full
 systematic review, or deeply summarize every candidate. Send user-selected
 papers to `paper-ingest`.
 
 ## Required References
+
+Resolve content paths from the Git repository root, which is also the Obsidian
+vault root. Paper notes, indexes, and saved discovery records live under
+`paper-vault/`. Resolve reference paths relative to this skill file.
 
 Read these files before running a discovery:
 
@@ -61,8 +65,9 @@ Read these files before running a discovery:
 - When the brief requests a coherent learning batch, optimize the final set as
   well as each individual paper. Do not fill the requested count with unrelated
   papers.
-- Respond and write discovery notes in the user's language unless requested
-  otherwise.
+- Respond in the user's language unless requested otherwise. Write saved
+  discovery notes in English by default; an explicit user instruction or
+  caller-supplied language configuration overrides that artifact default.
 
 ## Workflow
 
@@ -97,10 +102,10 @@ can be inferred.
 
 Search:
 
-- `papers/*.md` frontmatter for DOI, arXiv ID, title, citekey, venue, topics,
+- `paper-vault/papers/*.md` frontmatter for DOI, arXiv ID, title, citekey, venue, topics,
   areas, scenarios, and methods;
 - relation blocks for important `Status: not-ingested` targets;
-- `indexes/` for the vault's current coverage.
+- `paper-vault/indexes/` for the vault's current coverage.
 
 Create identity keys from DOI, arXiv ID, Semantic Scholar or OpenAlex ID when
 available, normalized title, year, and first author. Use these keys throughout
@@ -287,7 +292,7 @@ Always provide:
 - a suggested reading or ingestion order.
 
 Return the ranked result to the caller. Save it under
-`inbox/discoveries/YYYY-MM-DD-{topic-slug}.md` only when the user or calling
+`paper-vault/inbox/discoveries/YYYY-MM-DD-{topic-slug}.md` only when the user or calling
 workflow requests persistence. A saved note is an audit artifact; this skill
 does not load it automatically on later runs.
 

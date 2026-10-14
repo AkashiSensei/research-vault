@@ -1,9 +1,15 @@
 # Paper Vault Skills
 
-This directory contains AI-readable workflow instructions for maintaining this
-paper note vault. The skills are designed to be portable: they use plain
+This root-level directory contains shared AI-readable workflow instructions.
+The current paper workflows maintain the `paper-vault/` module. The skills are
+designed to be portable: they use plain
 Markdown, stable file conventions, and explicit rules instead of depending on a
 specific AI client or runtime.
+
+Content paths are relative to the Git repository root, which is also the
+Obsidian vault root. Skill and reference paths are relative to the skill file
+that names them. Run workflows from the Git root even when the request concerns
+only the paper module.
 
 ## Current Contents
 
@@ -18,7 +24,7 @@ specific AI client or runtime.
   It returns or optionally saves recommendations, but does not load intake
   history, create canonical paper notes, or update indexes.
 - `paper-ingest/`: Creates or updates canonical
-  paper notes in `papers/*.md` from a specified paper, with metadata
+  paper notes in `paper-vault/papers/*.md` from a specified paper, with metadata
   verification, structured summaries, relation blocks, and index updates.
 - `paper-intake/`: Orchestrates one configuration-driven recurring cycle,
   retaining candidate history, balancing up to fourteen recent runs, organizing

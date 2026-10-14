@@ -9,6 +9,9 @@
 attachments/**/*.pdf
 attachments/**/*.epub
 attachments/**/*.djvu
+paper-vault/attachments/**/*.pdf
+paper-vault/attachments/**/*.epub
+paper-vault/attachments/**/*.djvu
 
 # Personal paper-intake preferences
-paper-intake-config.md
+/paper-vault/paper-intake-config.md

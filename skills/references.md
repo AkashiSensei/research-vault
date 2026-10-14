@@ -82,8 +82,8 @@ Use in `paper-vault`:
 
 - `paper-discover` should return candidate papers with relevance rationale,
   source links, and suggested priority, and optionally persist that result as an
-  inbox/discovery note when the caller needs history.
-- It should not create formal `papers/*.md` files. User-selected candidates
+  paper-vault/inbox/discovery note when the caller needs history.
+- It should not create formal `paper-vault/papers/*.md` files. User-selected candidates
   should be handed to `paper-ingest`.
 
 ### Traversing Citation Networks

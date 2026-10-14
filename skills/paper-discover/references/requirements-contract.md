@@ -24,8 +24,8 @@ A higher source overrides a lower source only on the conflicting point. Preserve
 all compatible lower-priority preferences.
 
 Do not scan arbitrary Markdown files and treat their contents as user
-preferences. Read only explicitly named requirement documents. Scan `papers/`
-and `indexes/` separately as vault state. Do not load recommendation history
+preferences. Read only explicitly named requirement documents. Scan `paper-vault/papers/`
+and `paper-vault/indexes/` separately as vault state. Do not load recommendation history
 unless the caller explicitly supplies it.
 
 Treat `Not specified`, `未指定`, `unset`, `null`, empty bullets, instructions,
@@ -94,7 +94,7 @@ Useful requirement-document contents include:
 - default result count.
 
 Do not duplicate the vault inventory in a requirement document. Existing
-ingested papers come from `papers/`. Prior recommendations are caller-owned
+ingested papers come from `paper-vault/papers/`. Prior recommendations are caller-owned
 context, not an implicit dependency of this skill.
 
 ## Common Preference Interpretations

@@ -5,7 +5,9 @@ is stable output across different AI agents and models.
 
 ## File Path
 
-- Canonical paper notes live at `papers/{citekey}.md`.
+- Resolve content paths and path-qualified Obsidian links from the Git
+  repository root, which is also the Obsidian vault root.
+- Canonical paper notes live at `paper-vault/papers/{citekey}.md`.
 - `citekey` must match `^[a-z][a-z0-9-]*$`.
 - Prefer `firstauthorYYYYshorttitle`, for example `wang2025jenga`.
 
@@ -394,16 +396,16 @@ reference-list dump.
 
 Index files may link to paper notes with Obsidian wiki links.
 
-For index files outside `indexes/contexts/`, group entries by the paper note's
+For index files outside `paper-vault/indexes/contexts/`, group entries by the paper note's
 ingest creation month. Use the ISO month from frontmatter `created`, formatted
 as `YYYY-MM`, as the `##` heading. Create the heading if it does not exist.
 
-For example, inside `indexes/areas/AI Infrastructure.md`:
+For example, inside `paper-vault/indexes/areas/AI Infrastructure.md`:
 
 ```markdown
 ## 2026-05
 
-- [[papers/wang2025jenga]]
+- [[paper-vault/papers/wang2025jenga]]
   - Title: JENGA: Enhancing LLM Long-Context Fine-tuning with Contextual Token Sparsity
   - Workload domain: Training and adaptation.
   - System layer: Runtime and execution engine; operator and kernel optimization.
@@ -448,8 +450,8 @@ Use broad research-area names that people commonly use in labs, courses, and
 reading groups. It is acceptable for one paper to appear in multiple broad areas
 and narrower scenarios.
 
-`indexes/contexts/` is an explicit-reading-context area. Do not update
-`indexes/contexts/courses.md`, `indexes/contexts/seminars.md`, or similar files
+`paper-vault/indexes/contexts/` is an explicit-reading-context area. Do not update
+`paper-vault/indexes/contexts/courses.md`, `paper-vault/indexes/contexts/seminars.md`, or similar files
 unless the user explicitly provides that context. In `courses.md`, use course
 names as `##` headings. In `seminars.md`, use seminar dates as `## YYYY-MM-DD`
 headings.

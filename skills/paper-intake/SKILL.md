@@ -18,12 +18,14 @@ Read:
 3. the PDF source and external-delivery contract in
    `references/pdf-delivery-contract.md`;
 4. the configuration file explicitly named by the caller, or
-   `paper-intake-config.md` in the repository root by default;
+   `paper-vault/paper-intake-config.md` by default;
 5. `../paper-discover/SKILL.md` and every reference it requires;
 6. `../paper-ingest/SKILL.md` and every reference it requires before creating a
    canonical paper note.
 
-Resolve the configuration path from the repository root. Resolve sibling skill
+Resolve configuration and content paths from the Git repository root, which is
+also the Obsidian vault root. Paper content lives in `paper-vault/`; shared
+skills stay in root-level `skills/`. Resolve sibling skill
 and reference paths from the directory containing this skill. If a required
 file is absent or unreadable, stop without modifying the repository and report
 its path.
@@ -58,10 +60,10 @@ its path.
 - Do not create or switch branches, fetch, pull, merge, rebase, reset, clean,
   restore, discard, or stash changes.
 - Preserve every file and modification that existed before the run.
-- Require `papers/` to be completely clean at the start. Any staged, unstaged,
-  or untracked path under `papers/` means an earlier intake or human review is
+- Require `paper-vault/papers/` to be completely clean at the start. Any staged, unstaged,
+  or untracked path under `paper-vault/papers/` means an earlier intake or human review is
   unfinished.
-- A dirty working tree outside `papers/` is not by itself a blocker. Before
+- A dirty working tree outside `paper-vault/papers/` is not by itself a blocker. Before
   modifying any discovery note, relation, or index, ensure that target did not
   already have uncommitted changes.
 - Use verified legal sources. Never bypass paywalls, authentication, or access
@@ -80,7 +82,7 @@ its path.
 Before web search or file writes, run the equivalent of:
 
 ```text
-git status --porcelain --untracked-files=all -- papers/
+git status --porcelain --untracked-files=all -- paper-vault/papers/
 ```
 
 If it returns any entry, stop immediately. Do not search, recommend, ingest, or
@@ -90,10 +92,10 @@ modify any file. Report the blocking paths and their Git states.
 
 Record the initial Git status without changing it. Inventory:
 
-- canonical notes under `papers/`;
+- canonical notes under `paper-vault/papers/`;
 - relevant relation targets and indexes;
 - saved intake histories and standalone discovery notes under
-  `inbox/discoveries/`.
+  `paper-vault/inbox/discoveries/`.
 
 Canonical notes are the hard deduplication source. Discovery notes are
 optional `paper-discover` audit artifacts. Records with
@@ -134,7 +136,7 @@ invent an external location.
 ### 5. Review Recent Runs And Calculate Rolling Balance
 
 Read the most recent fourteen saved intake histories under
-`inbox/discoveries/`, ordered by their `intake_run_at` timestamps. Use every
+`paper-vault/inbox/discoveries/`, ordered by their `intake_run_at` timestamps. Use every
 available result when fewer than fourteen exist. When fewer than seven results
 exist, label the history as a warm-up window and avoid strong balance claims.
 During warm-up, use history balance only as a weak tie-breaker; active guidance,
@@ -459,7 +461,7 @@ Do not stage files during verification.
 
 ## Failure Handling
 
-- Stop before any search or write when `papers/` is dirty.
+- Stop before any search or write when `paper-vault/papers/` is dirty.
 - Stop before writes when configuration cannot be interpreted safely.
 - Stop before search or repository writes when configured external PDF
   destination preflight fails.
@@ -482,7 +484,7 @@ Do not stage files during verification.
 Confirm:
 
 - the configuration path was explicit or the documented default;
-- `papers/` was clean before discovery;
+- `paper-vault/papers/` was clean before discovery;
 - the rolling window examined up to fourteen prior intake results and identified
   warm-up state when it contained fewer than seven;
 - candidate history informed balance but did not become an implicit exclusion;

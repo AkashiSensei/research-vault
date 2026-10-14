@@ -1,8 +1,31 @@
 # Repository Agent Instructions
 
+## Instruction Scope
+
+- This file contains repository-wide rules.
+- Before editing a file, read the applicable instruction files along the path
+  from the Git repository root to that file's directory. In each directory,
+  use `AGENTS.override.md` when present; otherwise use `AGENTS.md`.
+- Nested instructions supplement these rules within their directory subtree.
+  More specific instructions take precedence when rules conflict.
+- Module instructions: [knowledge](knowledge/AGENTS.md) and
+  [paper vault](paper-vault/AGENTS.md).
+
+## Repository Identity And Language
+
+- The GitHub repository is `AkashiSensei/research-vault`.
+- Keep the existing local checkout path unchanged when updating repository
+  names or Git remote URLs.
+- Write repository content in English by default, including notes, reports,
+  indexes, documentation, and new templates.
+- An explicit user instruction or workflow language configuration overrides
+  that default. Do not infer a different artifact language solely from the
+  language used in the chat.
+- Preserve existing content languages unless translation is requested.
+
 ## Repository Semantics
 
-This repository is a paper knowledge base. Markdown is the primary artifact,
+This repository is a research and technical knowledge base. Markdown is the primary artifact,
 so commit types must describe the knowledge workflow rather than the file type.
 Do not default to `docs(...)` merely because a change edits Markdown.
 
@@ -24,6 +47,20 @@ Use commit subjects in the form `<type>(<scope>): <imperative description>`:
 Use `docs(...)` only for documentation that is genuinely separate from the
 vault's paper knowledge and workflows. Keep subjects concise and do not end
 them with a period.
+
+## Repository Layout
+
+- Treat the Git repository root as the Obsidian vault root.
+- Keep paper notes, literature indexes, and discovery and intake records in
+  `paper-vault/`; follow its module instructions for paths and workflows.
+- Keep shared workflow skills in root-level `skills/`. Resolve their reference
+  paths relative to the skill file and content paths relative to the Git root.
+- Use root-relative Obsidian paths such as
+  `[[paper-vault/papers/wang2025jenga]]` for links that include directories.
+- Keep reusable technical knowledge in `knowledge/`, grouped by domain;
+  follow its module instructions for writing and visual explanations.
+- Future research reports belong outside the paper module. Do not create
+  content directories until they are needed.
 
 ## Commit Boundaries
 

@@ -19,7 +19,7 @@ compact decision and handoff record rather than a search audit or paper note.
 Save one record under:
 
 ```text
-inbox/discoveries/YYYY-MM-DD-{topic-slug}.md
+paper-vault/inbox/discoveries/YYYY-MM-DD-{topic-slug}.md
 ```
 
 Use:
@@ -98,7 +98,7 @@ Keep one compact entry per final candidate:
 - Core: one plain-language sentence about the work itself.
 - Why today: one sentence connecting it to the direction decision.
 - Relation: its place in the batch and at least one connected paper.
-- Handoff: [[papers/citekey]] | reconsider later because ... | skipped because ...
+- Handoff: [[paper-vault/papers/citekey]] | reconsider later because ... | skipped because ...
 ```
 
 The official-page link is required. Add one stable identifier only when the

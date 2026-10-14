@@ -55,12 +55,12 @@ Responsibilities:
   signal as decisive.
 - Produce a ranked candidate list with recommendation reasons, caveats,
   evidence confidence, and a suggested reading or ingestion order.
-- Return a complete result and save it under `inbox/discoveries/` only when the
+- Return a complete result and save it under `paper-vault/inbox/discoveries/` only when the
   user or calling workflow requests persistence.
 
 Non-goals:
 
-- Do not create formal `papers/*.md` notes; selected papers go through
+- Do not create formal `paper-vault/papers/*.md` notes; selected papers go through
   `paper-ingest`.
 - Do not add every discovered paper to indexes.
 - Do not expand citation networks without relevance filtering.
@@ -102,7 +102,7 @@ scheduled recurring workflow.
 Responsibilities:
 
 - Read an explicitly named Markdown configuration or the repository default.
-- Stop when `papers/` contains unfinished staged, unstaged, or untracked work.
+- Stop when `paper-vault/papers/` contains unfinished staged, unstaged, or untracked work.
 - Own saved candidate history and calculate a lightweight rolling balance from
   up to fourteen recent run results, treating fewer than seven as warm-up.
 - Use cross-run balance to choose one shared learning theme, then keep the

@@ -46,7 +46,7 @@ Resolve `~` against the current operating-system user. Accept an absolute path
 or a home-relative path beginning with `~/`. Reject an ambiguous relative path
 and any destination that resolves inside the repository.
 
-After the clean-`papers/` gate and configuration parsing, but before search,
+After the clean-`paper-vault/papers/` gate and configuration parsing, but before search,
 history creation, or any repository write:
 
 1. resolve and normalize the destination;

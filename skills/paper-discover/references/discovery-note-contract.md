@@ -21,7 +21,7 @@ recommendation history. `paper-discover` does not read them implicitly.
 When saving results, use:
 
 ```text
-inbox/discoveries/YYYY-MM-DD-{topic-slug}.md
+paper-vault/inbox/discoveries/YYYY-MM-DD-{topic-slug}.md
 ```
 
 Use a short lowercase kebab-case slug. If a same-day file already exists, enrich

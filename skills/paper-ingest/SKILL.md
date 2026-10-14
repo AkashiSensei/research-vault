@@ -6,7 +6,7 @@ description: Add or revise a specified academic paper in an Obsidian-style paper
 # Paper Ingest
 
 Add one specified paper to the vault as a durable literature note. This skill is
-the formal write path for `papers/*.md`; discovery skills may propose papers,
+the formal write path for `paper-vault/papers/*.md`; discovery skills may propose papers,
 but ingestion creates the canonical paper note.
 
 ## Scope
@@ -46,22 +46,23 @@ explicitly part of the task.
 
 ## Vault Assumptions
 
-Prefer this layout when present:
+Resolve content paths from the Git repository root, which is also the Obsidian
+vault root. Resolve reference paths relative to this skill file. Use this layout:
 
 ```text
-papers/
-indexes/
-  areas/
-  scenarios/
-  topics/
-  venues/
-  methods/
-  datasets/
-  contexts/
-    courses.md
-    seminars.md
-inbox/
-templates/
+paper-vault/
+  papers/
+  indexes/
+    areas/
+    scenarios/
+    topics/
+    venues/
+    methods/
+    datasets/
+    contexts/
+      courses.md
+      seminars.md
+  inbox/
 skills/
 ```
 
@@ -204,7 +205,7 @@ vaswani2017attention
 Filename should be stable and readable. Prefer:
 
 ```text
-papers/{citekey}.md
+paper-vault/papers/{citekey}.md
 ```
 
 If the vault already uses a different naming convention, follow the existing
@@ -397,8 +398,8 @@ Suggest or update relevant indexes:
 - reading context, when relevant, such as a course, seminar, reading group, or
   project
 
-`indexes/contexts/` is opt-in. Do not update files such as
-`indexes/contexts/courses.md` or `indexes/contexts/seminars.md` unless the user
+`paper-vault/indexes/contexts/` is opt-in. Do not update files such as
+`paper-vault/indexes/contexts/courses.md` or `paper-vault/indexes/contexts/seminars.md` unless the user
 explicitly names a course, seminar, reading group, project, or other reading
 context. When updating context indexes, follow the file's local grouping rule:
 courses use course names as `##` headings; seminars use dates as `##` headings.

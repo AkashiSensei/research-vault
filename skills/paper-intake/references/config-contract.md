@@ -1,7 +1,7 @@
 # Paper Intake Configuration Contract
 
 Accept a natural-language Markdown configuration. The default repository path is
-`paper-intake-config.md`; callers may explicitly name another path.
+`paper-vault/paper-intake-config.md`; callers may explicitly name another path.
 
 ## Required Headings
 
