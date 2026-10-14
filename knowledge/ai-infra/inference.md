@@ -7,6 +7,8 @@ Concise entries on autoregressive LLM inference, grouped into:
 - KV-cache memory management
 - Attention kernels
 
+Related: [[knowledge/ai-infra/parallelism|Parallelism and state sharding]] covers DP, ZeRO, TP, and PP across training and inference.
+
 ## I. Execution Phases and Attention State
 
 ### 1. Prefill

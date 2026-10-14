@@ -11,8 +11,9 @@ explicit workflow configuration specifies another language.
 
 - [Paper vault](paper-vault/README.md): canonical paper notes, literature
   indexes, discovery records, and recurring intake configuration.
-- [AI infrastructure knowledge](knowledge/ai-infra/inference.md): working
-  notes on inference concepts, techniques, and performance trade-offs.
+- AI infrastructure knowledge: [training concepts](knowledge/ai-infra/training.md),
+  [inference concepts](knowledge/ai-infra/inference.md), and
+  [parallelism and state sharding](knowledge/ai-infra/parallelism.md).
 - [Shared skills](skills/README.md): AI-assisted workflows for maintaining the
   knowledge base.
 
