@@ -6,6 +6,8 @@ Concise entries on autoregressive LLM inference, grouped into:
 - Request scheduling and operator batching
 - KV-cache memory management
 - Attention kernels
+- Decoding strategies
+- Serving architecture
 
 Related: [[knowledge/ai-infra/parallelism|Parallelism and state sharding]] covers DP, ZeRO, TP, and PP across training and inference.
 
@@ -21,7 +23,7 @@ Related paper: [[paper-vault/papers/yu2022orca|Orca]].
 
 ### 2. Decode
 
-Processes one new token per active sequence per step, reuses its KV cache, and predicts the next token. This entry assumes ordinary decoding, without speculative decoding. Step duration affects inter-token latency (ITL).
+Processes one new token per active sequence per step, reuses its KV cache, and predicts the next token. This entry assumes ordinary decoding, without [[knowledge/ai-infra/inference#1. Speculative Decoding|speculative decoding]]. Step duration affects inter-token latency (ITL).
 
 Small-batch decode is often bandwidth-bound, spending much of its time moving model weights and KV data. The compute-bound prefill / bandwidth-bound decode distinction is a tendency: batch size, context length, model architecture, and hardware change the bottleneck. [Source: vLLM optimization guide](https://docs.vllm.ai/en/latest/configuration/optimization/#chunked-prefill).
 
@@ -189,3 +191,45 @@ o = \sum_j \exp(L_j - L)\,o_j.
 $$
 
 The partial outputs must be weighted by their normalization statistics, rather than simply averaged. [Source: Flash-Decoding author explanation](https://crfm.stanford.edu/2023/10/12/flashdecoding.html).
+
+## V. Decoding Strategies
+
+### 1. Speculative Decoding
+
+**Core idea: Draft several tokens cheaply, then verify them in one target-model pass.**
+
+The arrows show the repeated draft-and-verify control flow. Only the new draft is checked; the confirmed prefix never rolls back.
+
+```mermaid
+flowchart TD
+    prefix["Confirmed prefix"] -->|condition on fixed history| draft["Small model drafts candidate tokens"]
+    draft -->|candidate sequence| verify["Target model computes verification distributions in parallel"]
+    verify -->|check candidates in sequence order| accepted{"All candidates accepted?"}
+    accepted -->|No| repair["Keep candidates before the first rejection<br/>Discard the rejected candidate and its suffix<br/>Generate one correction token"]
+    accepted -->|Yes| bonus["Keep all candidates<br/>Generate one bonus token from the target distribution"]
+    repair -->|accepted prefix plus correction| extend["Extend confirmed output<br/>Apply stopping rules in token order"]
+    bonus -->|accepted draft plus bonus| extend
+    extend -->|check output| stop{"EOS, stop condition,<br/>or generation limit reached?"}
+    stop -->|Yes| done["Finish generation"]
+    stop -->|No: start the next round| prefix
+```
+
+*All candidates being accepted ends a round, not necessarily generation. Stopping takes priority: an accepted EOS ends output there, without a later correction or bonus token; a discarded draft EOS has no effect. This schematic follows the [classic speculative decoding algorithm](https://arxiv.org/abs/2211.17192).*
+
+A small draft model proposes a token sequence. Because those candidates are already known, the target model can evaluate their conditional distributions in parallel with causal attention. Keep the accepted prefix; at the first rejection, discard that candidate and all later ones, and generate a correction. Greedy verification checks agreement with the target's choices; exact speculative sampling uses acceptance probabilities and a corrected sampling distribution to preserve the target model's output distribution.
+
+Multi-token verification amortizes weight reads across positions when decode is bandwidth-bound with spare compute capacity. Drafting, extra model/cache memory, and rejected work add overhead; low acceptance rates or already compute-saturated batches can erase the gain. [Source: Speculative Decoding (Leviathan et al., 2023)](https://arxiv.org/abs/2211.17192).
+
+## VI. Serving Architecture
+
+### 1. Prefill / Decode Disaggregation
+
+**Core idea: Separate prefill and decode to control latency and improve goodput, transferring KV state between GPU groups.**
+
+The prefill group processes the prompt; its KV cache and continuation state are handed to a decode group serving the same model, which continues generation without recomputing the prompt. DistServe separates the phases to reduce interference and independently configure resources and parallelism for first-token and per-token latency requirements. Different GPU models are optional: the groups can instead differ in GPU count, [[knowledge/ai-infra/parallelism#1. Tensor Parallelism (TP)|TP]], [[knowledge/ai-infra/parallelism#2. Pipeline Parallelism (PP)|PP]], and concurrency.
+
+The goal is **per-GPU goodput**: the maximum request rate per GPU that meets the required attainment level for both time-to-first-token (TTFT) and time-per-output-token (TPOT) limits. Keeping the GPU busy alone does not ensure timely responses. [Source: DistServe (Zhong et al., 2024)](https://arxiv.org/abs/2401.09670).
+
+The trade-off is latency isolation and independent resource allocation versus KV-transfer overhead, separate model deployments, and load balancing. Colocation with chunked prefill can exploit complementary resource demands while limiting decode stalls; disaggregation is not universally better. The choice depends on latency targets, workload, and interconnect capacity. [Sources: DistServe](https://arxiv.org/abs/2401.09670); [Sarathi-Serve](https://arxiv.org/abs/2403.02310).
+
+This placement strategy can complement speculative decoding within the decode group.
